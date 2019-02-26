@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@blockone/tslint-config-blockone": "^2.0.0",
+    "@types/jest": "^24.0.9",
     "jest": "^24.1.0",
     "ts-jest": "^24.0.0",
     "tslint": "^5.13.0",

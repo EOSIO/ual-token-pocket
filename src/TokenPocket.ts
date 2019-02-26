@@ -7,7 +7,7 @@ import {
   User
 } from '@blockone/universal-authenticator-library'
 import tp from 'tp-eosjs'
-import { Name } from './interfaces'
+import { Name, WalletResponse } from './interfaces'
 import { tokenPocketLogo } from './tokenPocketLogo'
 import { TokenPocketUser } from './TokenPocketUser'
 import { UALTokenPocketError } from './UALTokenPocketError'
@@ -86,6 +86,7 @@ export class TokenPocket extends Authenticator {
   }
 
   public shouldRender(): boolean {
+    // TODO: determine if in env where token pocket is available
     if (this.supportsAllChains()) {
       return true
     }
@@ -101,8 +102,12 @@ export class TokenPocket extends Authenticator {
   public async login(_?: string): Promise<User[]> {
     if (this.users.length === 0) {
       try {
-        const { data } = await tp.getCurrentWallet()
-        this.users.push(new TokenPocketUser(this.chains[0], data))
+        const response: WalletResponse = await tp.getCurrentWallet()
+        if (response.result) {
+          this.users.push(new TokenPocketUser(this.chains[0], response.data))
+        } else {
+          throw new Error('No result returned')
+        }
       } catch (e) {
         throw new UALTokenPocketError(
           'Unable to get the current account during login',
