@@ -1,0 +1,23 @@
+{
+  "name": "@blockone/ual-token-pocket",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "clean-build": "rm -rf dist && yarn build",
+    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@blockone/universal-authenticator-library": "^0.0.32",
+    "tp-eosjs": "^1.5.2"
+  },
+  "devDependencies": {
+    "@blockone/tslint-config-blockone": "^2.0.0",
+    "jest": "^24.1.0",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.13.0",
+    "typescript": "^3.3.3333"
+  }
+}
