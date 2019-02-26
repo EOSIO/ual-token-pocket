@@ -23,9 +23,9 @@ export interface PushEosActionResponse {
 export interface EosAuthSignResponse {
   result: boolean
   data: {
-    signature : string
+    signature: string
     ref: string
-    signdata : string
+    signdata: string
     timestamp: string
     wallet: string
   }

@@ -6,7 +6,7 @@ import {
   User
 } from '@blockone/universal-authenticator-library'
 import tp from 'tp-eosjs'
-import { PushEosActionResponse, EosAuthSignResponse, Wallet } from './interfaces'
+import { EosAuthSignResponse, PushEosActionResponse, Wallet } from './interfaces'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
 export class TokenPocketUser extends User {
@@ -58,22 +58,22 @@ export class TokenPocketUser extends User {
     // tslint:disable-next-line:variable-name
     _helpText: string
     ): Promise<string> {
-      let response: EosAuthSignResponse
+    let response: EosAuthSignResponse
 
-      try {
-        response = await tp.eosAuthSign({ from: this.wallet.name, publicKey, signdata: data })
-        if (response.result) {
-          return response.data.signature
-        } else {
-          throw new Error('No result returned')
-        }
-      } catch (e) {
-        throw new UALTokenPocketError(
-          'Unable to sign arbitrary string',
-          UALErrorType.Signing,
-          e
-        )
+    try {
+      response = await tp.eosAuthSign({ from: this.wallet.name, publicKey, signdata: data })
+      if (response.result) {
+        return response.data.signature
+      } else {
+        throw new Error('No result returned')
       }
+    } catch (e) {
+      throw new UALTokenPocketError(
+        'Unable to sign arbitrary string',
+        UALErrorType.Signing,
+        e
+      )
+    }
   }
 
   public async verifyKeyOwnership(_: string): Promise<boolean> {

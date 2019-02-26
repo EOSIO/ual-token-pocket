@@ -1,4 +1,4 @@
-import { authSignResponse, walletResponse, pushActionResponse } from './data.mock'
+import { authSignResponse, pushActionResponse, walletResponse } from './data.mock'
 
 const tpEosjsMock = {
   isConnected: jest.fn().mockReturnValue(true),
