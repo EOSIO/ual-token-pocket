@@ -73,7 +73,12 @@ export class TokenPocket extends Authenticator {
 
   public reset(): void {
     this.initError = null
-    this.init()
+    this.init().catch((e) => {
+      throw new UALTokenPocketError(
+        'Unable to get the current account during login',
+        UALErrorType.Login,
+        e)
+    })
   }
 
   public getStyle(): ButtonStyle {
