@@ -31,10 +31,21 @@ describe('TokenPocketUser', () => {
   })
 
   describe('signArbitrary', () => {
+    const publicKey = 'testPublicKey'
+    const data = 'testSignData'
+    const helpText = 'test help text'
+
+    beforeEach(() => {
+      tp.eosAuthSign.mockReturnValue(authSignResponse)
+    })
+
     it('signs arbitrary data', async () => {
-      const signature = await user.signArbitrary('myPublicKey', 'This should be signed', 'Some help text')
+      const signature = await user.signArbitrary(publicKey, data, helpText)
 
       expect(signature).toEqual(authSignResponse.data.signature)
+      expect(tp.eosAuthSign).toHaveBeenCalledWith(
+        { from: wallet.name, publicKey, signdata: data }
+      )
     })
 
     it('throws UALError on api error', async () => {
@@ -45,7 +56,7 @@ describe('TokenPocketUser', () => {
       let didThrow = true
 
       try {
-        await user.signArbitrary('myPublicKey', 'This should be signed', 'Some help text')
+        await user.signArbitrary(publicKey, data, helpText)
         didThrow = false
       } catch (e) {
         const ex = e as UALTokenPocketError
@@ -67,7 +78,7 @@ describe('TokenPocketUser', () => {
       let didThrow = true
 
       try {
-        await user.signArbitrary('myPublicKey', 'This should be signed', 'Some help text')
+        await user.signArbitrary(publicKey, data, helpText)
         didThrow = false
       } catch (e) {
         const ex = e as UALTokenPocketError
@@ -82,12 +93,24 @@ describe('TokenPocketUser', () => {
   })
 
   describe('signTransaction', () => {
-    it('signs the transaction', async () => {
-      const result = await user.signTransaction({}, {})
-      expect(result.wasBroadcast).toBe(true)
-      expect(result.transactionId).toEqual(pushActionResponse.data.transactionId)
+    const transaction = { test: 'test' }
+
+    beforeEach(() => {
+      tp.pushEosAction.mockReturnValue(pushActionResponse)
     })
-    
+
+    it('signs the transaction', async () => {
+      const result = await user.signTransaction(transaction, {})
+      expect(result).toEqual({
+        transaction,
+        wasBroadcast: true,
+        transactionId: pushActionResponse.data.transactionId
+      })
+      expect(tp.pushEosAction).toHaveBeenCalledWith(
+        { test: 'test', account: wallet.name, address: wallet.address}
+      )
+    })
+
     it('throws UALError on failed signTransaction', async () => {
       tp.pushEosAction.mockImplementation(() => {
         throw new Error('Unable to transact')
@@ -95,7 +118,7 @@ describe('TokenPocketUser', () => {
       let didThrow = true
 
       try {
-        await user.signTransaction({}, {})
+        await user.signTransaction(transaction, {})
         didThrow = false
       } catch (e) {
         const ex = e as UALTokenPocketError

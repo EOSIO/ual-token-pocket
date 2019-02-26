@@ -14,6 +14,18 @@ jest.useFakeTimers()
 describe('TokenPocket', () => {
 
   describe('init', () => {
+    beforeEach(() => {
+      tp.isConnected.mockReturnValue(true)
+    })
+
+    it('loading should be true if TokenPocket is not loaded', () => {
+      const tokenPocket = new TokenPocket([] as Chain[])
+      tokenPocket.init()
+      jest.runAllTimers()
+      expect(tokenPocket.isLoading()).toBe(true)
+      expect(tp.isConnected).toHaveBeenCalled()
+    })
+
     it('loading should be false if TokenPocket is not loaded', () => {
       const tokenPocket = new TokenPocket([] as Chain[])
       tp.isConnected.mockReturnValue(false)
@@ -26,13 +38,6 @@ describe('TokenPocket', () => {
         jest.runAllTimers()
         expect(tokenPocket.isLoading()).toBe(false)
       })
-    })
-
-    it('loading should be true if TokenPocket is not loaded', () => {
-      const tokenPocket = new TokenPocket([] as Chain[])
-      tokenPocket.init()
-      jest.runAllTimers()
-      expect(tokenPocket.isLoading()).toBe(true)
     })
   })
 
@@ -69,12 +74,23 @@ describe('TokenPocket', () => {
   })
 
   describe('login', () => {
+    beforeEach(() => {
+      tp.getCurrentWallet.mockReturnValue(walletResponse)
+    })
+
     it('should get the accounts', async () => {
       const tokenPocket = new TokenPocket([] as Chain[])
       const accounts = await tokenPocket.login()
       expect(accounts.length).toBe(1)
+      expect(tp.getCurrentWallet).toHaveBeenCalled()
+    })
+
+    it('should get the accounts names', async () => {
+      const tokenPocket = new TokenPocket([] as Chain[])
+      const accounts = await tokenPocket.login()
       const accountName = await accounts[0].getAccountName()
       expect(accountName).toBe(walletResponse.data.name)
+      expect(tp.getCurrentWallet).toHaveBeenCalled()
     })
 
     it('throws UALError if result is not set', async () => {
@@ -124,9 +140,14 @@ describe('TokenPocket', () => {
   })
 
   describe('isLoading', () => {
+    beforeEach(() => {
+      tp.isConnected.mockReturnValue(true)
+    })
+
     it('defaults to true when the authenticator is not initialized', () => {
       const tokenPocket = new TokenPocket([] as Chain[])
       expect(tokenPocket.isLoading()).toBe(true)
+      expect(tp.isConnected).toHaveBeenCalled()
     })
 
     it('is true while authenticator is initializing, and transitions when done', () => {
