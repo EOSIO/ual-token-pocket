@@ -101,7 +101,7 @@ export class TokenPocket extends Authenticator {
     return this.shouldRender()
   }
 
-  public async login(_?: string): Promise<User[]> {
+  public async login(): Promise<User[]> {
     if (this.users.length === 0) {
       try {
         const response: WalletResponse = await tp.getCurrentWallet()
