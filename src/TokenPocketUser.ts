@@ -6,6 +6,7 @@ import {
   User
 } from '@blockone/universal-authenticator-library'
 import tp from 'tp-eosjs'
+
 import { EosAuthSignResponse, PushEosActionResponse, Wallet } from './interfaces'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
