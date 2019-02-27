@@ -34,9 +34,9 @@ export class TokenPocket extends Authenticator {
     return new Promise((resolve) => {
       let checkCount = TokenPocket.NUM_CHECKS
       const checkInterval = setInterval(() => {
-        if (!!tp.isConnected() || checkCount === 0) {
+        if (tp.isConnected() || checkCount === 0) {
           clearInterval(checkInterval)
-          resolve(!!tp.isConnected())
+          resolve(tp.isConnected())
         }
         checkCount--
       }, TokenPocket.API_LOADED_CHECK_INTERVAL)
