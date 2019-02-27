@@ -44,10 +44,10 @@ const tokenPocket = new TokenPocket([chain])
 ```
 
 ### Warning and Limitations
-Using Token Pocket within your app is no different than using other authenticator plugins. However, if your application is being used from within the Token Pocket mobile app it is a bit sandboxed. The main restriction is that the Token Pocket mobile app (and consequently the authenticator) can **ONLY** communicate with EOS Mainnet. So when setting up UAL, if you specify other chains it will not work. This is also true if you specify additional chains along with Mainnet. This can make testing difficult if your application is using contracts that are not yet deployed to Mainnet.
+Using Token Pocket within your app is no different than using other authenticator plugins. However, if your application is being used from within the Token Pocket mobile app it is using an embedded browser to view the application. The main restriction is that the Token Pocket mobile app (and consequently the authenticator) can **ONLY** communicate with EOS Mainnet. So when setting up UAL, if you specify other chains it will not work. This is also true if you specify additional chains along with Mainnet. This can make testing difficult if your application is using contracts that are not yet deployed to Mainnet.
 
 ### Testing on Mainnet
-For a simple test to verify the authentication is working, you can stick with system contracts that are already present on Mainnet (e.g. transfer). In this case you can run a simple app locally fronted by ngrok. Token Pocket DOES have the ability to point to an app for testing wherever it lives. But the app must only use Mainnet. So basically:
+For a simple test to verify that authentication is working, you can stick with system contracts that are already present on Mainnet (e.g. transfer). In this case you can run a simple app locally fronted by [ngrok](https://ngrok.com/). Token Pocket DOES have the ability to point to an app for testing wherever it is being hosted (i.e. the ngrok url), but the app must only use Mainnet. Below is a brief outline of how to test with Token Pocket with a local instance of your app:
 
 * Start up your test application
 * If running locally, forward it with ngrok
