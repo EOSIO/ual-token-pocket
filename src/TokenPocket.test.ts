@@ -10,7 +10,6 @@ import { UALTokenPocketError } from './UALTokenPocketError'
 
 jest.useFakeTimers()
 
-
 describe('TokenPocket', () => {
 
   describe('init', () => {
@@ -18,7 +17,7 @@ describe('TokenPocket', () => {
       tp.isConnected.mockReturnValue(true)
     })
 
-    it('loading should be true if TokenPocket is not loaded', () => {
+    it('loading should be true if TokenPocket is not loaded', async () => {
       const tokenPocket = new TokenPocket([] as Chain[])
       tokenPocket.init()
       jest.runAllTimers()
@@ -26,18 +25,19 @@ describe('TokenPocket', () => {
       expect(tp.isConnected).toHaveBeenCalled()
     })
 
-    it('loading should be false if TokenPocket is not loaded', () => {
-      const tokenPocket = new TokenPocket([] as Chain[])
+    it('loading should be false if TokenPocket is loaded', async () => {
       tp.isConnected.mockReturnValue(false)
-      tokenPocket.init()
-      .then(() => {
-        // Make the API available after 0.5 sec
-        jest.advanceTimersByTime(500)
-        tp.isConnected.mockReturnValue(true)
-        // Run timers to completion
-        jest.runAllTimers()
-        expect(tokenPocket.isLoading()).toBe(false)
-      })
+      const tokenPocket = new TokenPocket([] as Chain[])
+      const initPromise = tokenPocket.init()
+
+      // Make the API available after 0.1 sec
+      jest.advanceTimersByTime(100)
+      tp.isConnected.mockReturnValue(true)
+      // Run timers to completion
+      jest.runAllTimers()
+      await initPromise
+      expect(tokenPocket.isLoading()).toBe(false)
+      expect(tp.isConnected).toHaveBeenCalledTimes(2)
     })
   })
 
@@ -139,28 +139,7 @@ describe('TokenPocket', () => {
     })
   })
 
-  describe('isLoading', () => {
-    beforeEach(() => {
-      tp.isConnected.mockReturnValue(true)
-    })
-
-    it('defaults to true when the authenticator is not initialized', () => {
-      const tokenPocket = new TokenPocket([] as Chain[])
-      expect(tokenPocket.isLoading()).toBe(true)
-      expect(tp.isConnected).toHaveBeenCalled()
-    })
-
-    it('is true while authenticator is initializing, and transitions when done', () => {
-      const tokenPocket = new TokenPocket([] as Chain[])
-      tokenPocket.init()
-      .then(() => {
-        // Make the API available after 0.5 sec
-        jest.advanceTimersByTime(500)
-        tp.isConnected.mockReturnValue(true)
-        // Run timers to completion
-        jest.runAllTimers()
-        expect(tokenPocket.isLoading()).toBe(false)
-      })
-    })
+  afterEach(() => {
+    jest.clearAllMocks()
   })
 })

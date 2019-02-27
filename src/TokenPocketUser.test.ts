@@ -130,4 +130,8 @@ describe('TokenPocketUser', () => {
       expect(didThrow).toBe(true)
     })
   })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
 })
