@@ -11,7 +11,6 @@ import { UALTokenPocketError } from './UALTokenPocketError'
 jest.useFakeTimers()
 
 describe('TokenPocket', () => {
-
   describe('init', () => {
     beforeEach(() => {
       tp.isConnected.mockReturnValue(true)
