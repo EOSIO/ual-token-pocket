@@ -74,6 +74,7 @@ export class TokenPocket extends Authenticator {
 
   public reset(): void {
     this.initError = null
+    // TODO: determine how to handle errors from this.init if reset does not return a promise
     // tslint:disable-next-line:no-floating-promises
     this.init()
   }
