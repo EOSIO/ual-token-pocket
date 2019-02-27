@@ -7,7 +7,8 @@ import {
   User
 } from '@blockone/universal-authenticator-library'
 import tp from 'tp-eosjs'
-import { Name } from './interfaces'
+
+import { Name, WalletResponse } from './interfaces'
 import { tokenPocketLogo } from './tokenPocketLogo'
 import { TokenPocketUser } from './TokenPocketUser'
 import { UALTokenPocketError } from './UALTokenPocketError'
@@ -34,9 +35,9 @@ export class TokenPocket extends Authenticator {
     return new Promise((resolve) => {
       let checkCount = TokenPocket.NUM_CHECKS
       const checkInterval = setInterval(() => {
-        if (!!tp.isConnected() || checkCount === 0) {
+        if (tp.isConnected() || checkCount === 0) {
           clearInterval(checkInterval)
-          resolve(!!tp.isConnected())
+          resolve(tp.isConnected())
         }
         checkCount--
       }, TokenPocket.API_LOADED_CHECK_INTERVAL)
@@ -73,6 +74,8 @@ export class TokenPocket extends Authenticator {
 
   public reset(): void {
     this.initError = null
+    // TODO: determine how to handle errors from this.init if reset does not return a promise
+    // tslint:disable-next-line:no-floating-promises
     this.init()
   }
 
@@ -86,6 +89,7 @@ export class TokenPocket extends Authenticator {
   }
 
   public shouldRender(): boolean {
+    // TODO: determine if in env where token pocket is available
     if (this.supportsAllChains()) {
       return true
     }
@@ -98,11 +102,15 @@ export class TokenPocket extends Authenticator {
     return this.shouldRender()
   }
 
-  public async login(_?: string): Promise<User[]> {
+  public async login(): Promise<User[]> {
     if (this.users.length === 0) {
       try {
-        const { data } = await tp.getCurrentWallet()
-        this.users.push(new TokenPocketUser(this.chains[0], data))
+        const response: WalletResponse = await tp.getCurrentWallet()
+        if (response.result) {
+          this.users.push(new TokenPocketUser(this.chains[0], response.data))
+        } else {
+          throw new Error('No result returned')
+        }
       } catch (e) {
         throw new UALTokenPocketError(
           'Unable to get the current account during login',

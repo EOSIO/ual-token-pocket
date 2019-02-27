@@ -9,7 +9,6 @@
   "rulesDirectory": [],
   "linterOptions": {
     "exclude": [
-      "src/**/templates/",
       "**/*.js"
     ]
   }
