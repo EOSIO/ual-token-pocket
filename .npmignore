@@ -9,5 +9,3 @@ dist/**/*.test.*
 
 # Include documentation and version information in bundle
 !CONTRIBUTING.md
-
-# Include any additional source files which should be bundled
