@@ -49,7 +49,7 @@ describe('TokenPocket', () => {
     ]
 
     beforeEach(() => {
-      Object.defineProperty(window.navigator, 'userAgent', {value: 'Mobile', configurable: true})
+      Object.defineProperty(window.navigator, 'userAgent', { value: 'Mobile', configurable: true })
     })
 
     it('should return true if all given chains are supported and on mobile', () => {
@@ -75,7 +75,7 @@ describe('TokenPocket', () => {
     })
 
     it('returns false if not on mobile', async () => {
-      Object.defineProperty(window.navigator, 'userAgent', {value: 'Chrome', configurable: true})
+      Object.defineProperty(window.navigator, 'userAgent', { value: 'Chrome', configurable: true })
       const tokenPocket = new TokenPocket(chains)
       const shouldRender = tokenPocket.shouldRender()
       expect(shouldRender).toBe(false)
@@ -92,7 +92,7 @@ describe('TokenPocket', () => {
           rpcEndpoints: [] as RpcEndpoint[]
         }
       ]
-      Object.defineProperty(window.navigator, 'userAgent', {value: 'Chrome', configurable: true})
+      Object.defineProperty(window.navigator, 'userAgent', { value: 'Chrome', configurable: true })
       const tokenPocket = new TokenPocket(chainsWithUnsupportedChain)
       const shouldRender = tokenPocket.shouldRender()
       expect(shouldRender).toBe(false)
