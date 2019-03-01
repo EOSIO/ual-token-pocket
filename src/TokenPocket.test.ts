@@ -41,10 +41,27 @@ describe('TokenPocket', () => {
   })
 
   describe('shouldRender', () => {
+    const chains = [
+      {
+        chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+        rpcEndpoints: [] as RpcEndpoint[]
+      }
+    ]
+
+    beforeEach(() => {
+      Object.defineProperty(window.navigator, 'userAgent', { value: 'Mobile', configurable: true })
+    })
+
+    it('should return true if all given chains are supported and on mobile', () => {
+      const tokenPocket = new TokenPocket(chains)
+      const shouldRender = tokenPocket.shouldRender()
+      expect(shouldRender).toBe(true)
+    })
+
     it('should return false if a given chain is not supported', () => {
-      const chains = [
+      const chainsWithUnsupportedChain = [
         {
-          chainId: '687fa513e18843ad3e820744f4ffcf93k1354036d80737db8dc444fe4m15ad17',
+          chainId: 'testChain',
           rpcEndpoints: [] as RpcEndpoint[]
         },
         {
@@ -52,23 +69,33 @@ describe('TokenPocket', () => {
           rpcEndpoints: [] as RpcEndpoint[]
         }
       ]
-      const tokenPocket = new TokenPocket(chains)
+      const tokenPocket = new TokenPocket(chainsWithUnsupportedChain)
       const shouldRender = tokenPocket.shouldRender()
-      jest.runAllTimers()
       expect(shouldRender).toBe(false)
     })
 
-    it('should return true if all given chains are supported', () => {
-      const chains = [
+    it('returns false if not on mobile', async () => {
+      Object.defineProperty(window.navigator, 'userAgent', { value: 'Chrome', configurable: true })
+      const tokenPocket = new TokenPocket(chains)
+      const shouldRender = tokenPocket.shouldRender()
+      expect(shouldRender).toBe(false)
+    })
+
+    it('should return false if a given chain is not supported and not mobile', () => {
+      const chainsWithUnsupportedChain = [
+        {
+          chainId: 'testChain',
+          rpcEndpoints: [] as RpcEndpoint[]
+        },
         {
           chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
           rpcEndpoints: [] as RpcEndpoint[]
         }
       ]
-      const tokenPocket = new TokenPocket(chains)
+      Object.defineProperty(window.navigator, 'userAgent', { value: 'Chrome', configurable: true })
+      const tokenPocket = new TokenPocket(chainsWithUnsupportedChain)
       const shouldRender = tokenPocket.shouldRender()
-      jest.runAllTimers()
-      expect(shouldRender).toBe(true)
+      expect(shouldRender).toBe(false)
     })
   })
 

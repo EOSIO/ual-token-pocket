@@ -58,6 +58,15 @@ export class TokenPocket extends Authenticator {
     return true
   }
 
+  public isMobile(): boolean {
+    const userAgent = window.navigator.userAgent
+    const isIOS = userAgent.includes('iPhone') || userAgent.includes('iPad')
+    const isMobile = userAgent.includes('Mobile')
+    const isAndroid = userAgent.includes('Android')
+
+    return isIOS || isMobile || isAndroid
+  }
+
   public async init(): Promise<void> {
     this.tokenPocketIsLoading = true
     try {
@@ -89,8 +98,7 @@ export class TokenPocket extends Authenticator {
   }
 
   public shouldRender(): boolean {
-    // TODO: determine if in env where token pocket is available
-    if (this.supportsAllChains()) {
+    if (this.supportsAllChains() && this.isMobile()) {
       return true
     }
 
@@ -145,5 +153,9 @@ export class TokenPocket extends Authenticator {
 
   public getOnboardingLink(): string {
     return 'https://www.mytokenpocket.vip/en/'
+  }
+
+  public requiresGetKeyConfirmation(): boolean {
+    return false
   }
 }

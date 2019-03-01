@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@blockone/universal-authenticator-library": "^0.0.32",
+    "@blockone/universal-authenticator-library": "^0.0.33",
     "tp-eosjs": "^1.5.2"
   },
   "devDependencies": {
