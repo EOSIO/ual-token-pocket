@@ -20,5 +20,15 @@
     "ts-jest": "^24.0.0",
     "tslint": "^5.13.0",
     "typescript": "^3.3.3333"
-  }
+  },
+  "description": "UAL Authenticator for Token Pocket mobile app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EOSIO/ual-token-pocket.git"
+  },
+  "author": "Blockone",
+  "bugs": {
+    "url": "https://github.com/EOSIO/ual-token-pocket/issues"
+  },
+  "homepage": "https://github.com/EOSIO/ual-token-pocket#readme"
 }
