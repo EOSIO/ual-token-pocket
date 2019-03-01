@@ -4,7 +4,7 @@ This authenticator is meant to be used with [Universal Authenticator Library](ht
 
 ## Getting started
 
-**Note:** be sure to read the [Warning and limitations](#warning-and-limitations) section below.
+**Note:** be sure to read the [Warning and Limitations](#warning-and-limitations) section below.
 
 `yarn add @blockone/ual-token-pocket`
 
