@@ -56,3 +56,9 @@ For a simple test to verify that authentication is working, you can stick with s
   - Enter the test URL in the top search bar or select the "Dapp Browser" app and enter the test URL
 
 From this point on, the app should behave as expected.
+
+## Contribution
+Check out the [Contributing](https://github.com/EOSIO/ual-token-pocket/blob/develop/CONTRIBUTING.md) guide and please adhere to the [Code of Conduct](https://github.com/EOSIO/ual-token-pocket/blob/develop/CONTRIBUTING.md#conduct)
+
+## License
+[MIT licensed](https://github.com/EOSIO/ual-token-pocket/blob/develop/LICENSE)

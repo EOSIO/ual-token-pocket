@@ -69,5 +69,14 @@ dist/
 dist-web/
 build/
 
-# Dev Server Static Output
-public/
+# Testing
+/coverage
+
+# Misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+*.orig
+package-lock.json
