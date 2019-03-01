@@ -6,9 +6,7 @@ This authenticator is meant to be used with [Universal Authenticator Library](ht
 
 **Note:** be sure to read the [Warning and limitations](#warning-and-limitations) section below.
 
-```bash
-yarn add @blockone/ual-token-pocket
-```
+`yarn add @blockone/ual-token-pocket`
 
 #### Dependencies
 
