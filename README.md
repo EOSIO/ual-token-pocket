@@ -6,7 +6,9 @@ This authenticator is meant to be used with [Universal Authenticator Library](ht
 
 **Note:** be sure to read the [Warning and limitations](#warning-and-limitations) section below.
 
-`yarn add @blockone/ual-token-pocket`
+```bash
+yarn add @blockone/ual-token-pocket
+```
 
 #### Dependencies
 
@@ -19,8 +21,7 @@ Vanillajs - `@blockone/universal-authenticator-library-js`
 
 #### Basic Usage with React
 
-```
-
+```javascript
 import { TokenPocket } from '@blockone/ual-token-pocket'
 import { UALProvider, withUAL } from '@blockone/universal-authenticator-library-react'
 
