@@ -93,7 +93,7 @@ export class TokenPocket extends Authenticator {
       icon: tokenPocketLogo,
       text: Name,
       textColor: '#FFFFFF',
-      background: '#2761E7'
+      background: '#347CEE'
     }
   }
 
