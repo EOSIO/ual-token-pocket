@@ -70,7 +70,12 @@ export class TokenPocket extends Authenticator {
   public async init(): Promise<void> {
     this.tokenPocketIsLoading = true
     try {
-      await this.isTokenPocketReady()
+      if (!await this.isTokenPocketReady()) {
+        this.initError = new UALTokenPocketError('Error occurred while connecting',
+          UALErrorType.Initialization,
+          null
+        )
+      }
     } catch (e) {
       this.initError = new UALTokenPocketError(
         'Error occurred during autologin',
@@ -83,7 +88,6 @@ export class TokenPocket extends Authenticator {
 
   public reset(): void {
     this.initError = null
-    // TODO: determine how to handle errors from this.init if reset does not return a promise
     // tslint:disable-next-line:no-floating-promises
     this.init()
   }

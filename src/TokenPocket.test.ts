@@ -38,6 +38,22 @@ describe('TokenPocket', () => {
       expect(tokenPocket.isLoading()).toBe(false)
       expect(tp.isConnected).toHaveBeenCalledTimes(2)
     })
+
+    it('sets initError if it cant connect to api', async () => {
+      tp.isConnected.mockReturnValue(false)
+      const tokenPocket = new TokenPocket([] as Chain[])
+      const initPromise = tokenPocket.init()
+
+      // Run timers to completion
+      jest.runAllTimers()
+      await initPromise
+
+      const error = tokenPocket.getError() as UALTokenPocketError
+      expect(error.source).toEqual(Name)
+      expect(error.message).toEqual('Error occurred while connecting')
+      expect(error.type).toEqual(UALErrorType.Initialization)
+      expect(error.cause).toEqual(null)
+    })
   })
 
   describe('shouldRender', () => {
