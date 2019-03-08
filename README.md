@@ -42,7 +42,7 @@ const tokenPocket = new TokenPocket([chain])
 </UALProvider>
 ```
 
-### Warning and Limitations
+### Warnings and Limitations
 * Using Token Pocket within your app is no different than using other authenticator plugins. However, if your application is being used from within the Token Pocket mobile app it is using an embedded browser to view the application. The main restriction is that the Token Pocket mobile app (and consequently the authenticator) can **ONLY** communicate with EOS Mainnet. So when setting up UAL, if you specify other chains it will not work. This is also true if you specify additional chains along with Mainnet. This can make testing difficult if your application is using contracts that are not yet deployed to Mainnet.
 * Though the Token Pocket authenticator supports *auto-login* within its own (Token Pocket) browser, this feature may be compromised when an app supports similar mobile authenticators such as [UAL Lynx](https://github.com/EOSIO/ual-lynx). As outlined in the logic of the [UAL base class](https://github.com/EOSIO/universal-authenticator-library/blob/develop/packages/universal-authenticator-library/src/UAL.ts#L33), auto-login only occurs if a supporting authenticator is the **only** available authenticator.
 
