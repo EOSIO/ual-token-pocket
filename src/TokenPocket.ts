@@ -29,7 +29,6 @@ export class TokenPocket extends Authenticator {
 
   /**
    * TokenPocket Constructor.
-   *
    * @param chains
    */
   constructor(chains: Chain[]) {
@@ -112,8 +111,8 @@ export class TokenPocket extends Authenticator {
   }
 
   /**
-   * TokenPocket is chain and environment specific, it will only load within the Token Pocket
-   * browser provided all chains are supported.
+   * The TokenPocket authenticator is chain and environment specific, it will only load
+   * within the Token Pocket browser provided all chains are supported.
    */
   public shouldRender(): boolean {
     if (this.supportsAllChains() && this.isMobile()) {
@@ -129,7 +128,7 @@ export class TokenPocket extends Authenticator {
   }
 
   /**
-   * Requests the Currently active account from Token Pocket, will throw a Login error if Token Pocket
+   * Requests the currently active account from Token Pocket, will throw a Login error if Token Pocket
    * does not respond or errors out
    */
   public async login(): Promise<User[]> {
