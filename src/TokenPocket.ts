@@ -27,6 +27,11 @@ export class TokenPocket extends Authenticator {
     aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906: {},
   }
 
+  /**
+   * TokenPocket Constructor.
+   *
+   * @param chains
+   */
   constructor(chains: Chain[]) {
     super(chains)
   }
@@ -67,6 +72,11 @@ export class TokenPocket extends Authenticator {
     return isIOS || isMobile || isAndroid
   }
 
+  /**
+   * TokenPocket injects into the app from its internal browser, because of that we check on a
+   * configured interval, allowing up to 5 seconds for TokenPocket to become available before
+   * throwing an initialization error.
+   */
   public async init(): Promise<void> {
     this.tokenPocketIsLoading = true
     try {
@@ -101,6 +111,10 @@ export class TokenPocket extends Authenticator {
     }
   }
 
+  /**
+   * TokenPocket is chain and environment specific, it will only load within the Token Pocket
+   * browser provided all chains are supported.
+   */
   public shouldRender(): boolean {
     if (this.supportsAllChains() && this.isMobile()) {
       return true
@@ -114,6 +128,10 @@ export class TokenPocket extends Authenticator {
     return this.shouldRender()
   }
 
+  /**
+   * Requests the Currently active account from Token Pocket, will throw a Login error if Token Pocket
+   * does not respond or errors out
+   */
   public async login(): Promise<User[]> {
     if (this.users.length === 0) {
       try {
@@ -134,7 +152,12 @@ export class TokenPocket extends Authenticator {
     return this.users
   }
 
-  // Token Pocket doesn't really have a "logout" concept
+  /**
+   * Clears the array of authenticated users
+   * Note: The name - logout - is slightly misleading in this particular case
+   * as calling this method will not log a user out of the Token Pocket app but rather
+   * refresh the user list on the authenticator
+   */
   public async logout(): Promise<void> {
     this.users = []
   }
