@@ -2,6 +2,10 @@
 
 This authenticator is meant to be used with [Token Pocket](https://www.mytokenpocket.vip/en/) and the [Universal Authenticator Library](https://github.com/EOSIO/universal-authenticator-library).
 
+## Supported Environments
+
+* The Token Pocket Authenticator is only supported within the Token Pocket Mobile App Browser
+
 ## Getting started
 
 **Note:** be sure to read the [Warning and Limitations](#warning-and-limitations) section below.
