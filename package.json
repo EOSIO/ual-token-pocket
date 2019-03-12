@@ -3,6 +3,13 @@
   "version": "0.0.5",
   "main": "dist/index.js",
   "license": "MIT",
+  "author": {
+    "name": "block.one",
+    "url": "https://block.one"
+  },
+  "contributors": [
+    "Tara Tritt"
+  ],
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "clean-build": "rm -rf dist && yarn build",
@@ -10,7 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@blockone/universal-authenticator-library": "^0.0.33",
+    "@blockone/universal-authenticator-library": "0.0.34",
     "tp-eosjs": "^1.5.2"
   },
   "devDependencies": {
@@ -26,7 +33,6 @@
     "type": "git",
     "url": "git+https://github.com/EOSIO/ual-token-pocket.git"
   },
-  "author": "Blockone",
   "bugs": {
     "url": "https://github.com/EOSIO/ual-token-pocket/issues"
   },

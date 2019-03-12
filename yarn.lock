@@ -139,10 +139,10 @@
     tslint "^5.11.0"
     tslint-eslint-rules "^5.4.0"
 
-"@blockone/universal-authenticator-library@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@blockone/universal-authenticator-library/-/universal-authenticator-library-0.0.33.tgz#759f9b81bdbb81066df12ea8f9279bf87a459127"
-  integrity sha512-GRrSo83o7ko0xDKoUvL1nL3V3u2QNrBLIlrUF/gWaBn/81GPjA8etcq+ok+jn6/4vGlum5nJtuV5MyIRUqQg9g==
+"@blockone/universal-authenticator-library@0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@blockone/universal-authenticator-library/-/universal-authenticator-library-0.0.34.tgz#82f78a071b74162ae83acf12e074046f237ddd93"
+  integrity sha512-k6XsowYDBOZMzY8ALdpaPuV3XCGqbTgUAvYFJvZVpdc95PC+EhN7Quv7AODPoL0ruTbgmNH39LLBd9vQZSVQCw==
 
 "@types/jest-diff@*":
   version "20.0.1"

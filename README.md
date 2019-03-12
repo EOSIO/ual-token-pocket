@@ -1,4 +1,4 @@
-# Authenticator for Token Pocket
+# UAL Token Pocket
 
 This authenticator is meant to be used with [Token Pocket](https://www.mytokenpocket.vip/en/) and the [Universal Authenticator Library](https://github.com/EOSIO/universal-authenticator-library).
 
@@ -16,16 +16,16 @@ This authenticator is meant to be used with [Token Pocket](https://www.mytokenpo
 
 You must use one of the UAL renderers below.
 
-React - `@blockone/universal-authenticator-library-react`
+React - `@blockone/universal-authenticator-react-js-renderer`
 
-Vanillajs - `@blockone/universal-authenticator-library-js`
+PlainJS - `@blockone/universal-authenticator-library-plain-js-renderer`
 
 
 #### Basic Usage with React
 
 ```javascript
 import { TokenPocket } from '@blockone/ual-token-pocket'
-import { UALProvider, withUAL } from '@blockone/universal-authenticator-library-react'
+import { UALProvider, withUAL } from '@blockone/universal-authenticator-react-js-renderer'
 
 const exampleNet = {
   chainId: '',
