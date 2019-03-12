@@ -4,14 +4,11 @@
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
-    "name": "Block.one",
+    "name": "block.one",
     "url": "https://block.one"
   },
   "contributors": [
-    "Nasser Abouelazm",
-    "Chris Allnutt",
-    "Randy Torres",
-    "Jeffrey Smith II"
+    "Tara Tritt"
   ],
   "scripts": {
     "build": "tsc --build tsconfig.json",

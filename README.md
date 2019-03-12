@@ -1,4 +1,4 @@
-# UAL Token Pocket (popular Asian authenticator)
+# UAL Token Pocket
 
 This authenticator is meant to be used with [Token Pocket](https://www.mytokenpocket.vip/en/) and the [Universal Authenticator Library](https://github.com/EOSIO/universal-authenticator-library).
 
