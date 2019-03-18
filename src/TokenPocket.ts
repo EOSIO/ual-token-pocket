@@ -14,10 +14,6 @@ import { TokenPocketUser } from './TokenPocketUser'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
 export class TokenPocket extends Authenticator {
-  // Interval to test for whether the Token Pocket API is connected
-  private static API_LOADED_CHECK_INTERVAL = 500
-  // Number of times to look for the Token Pocket API before giving up
-  private static NUM_CHECKS = 10
   private users: TokenPocketUser[] = []
   private tokenPocketIsLoading: boolean = true
   private initError: UALError | null = null
@@ -35,17 +31,8 @@ export class TokenPocket extends Authenticator {
     super(chains)
   }
 
-  private isTokenPocketReady(): Promise<boolean> {
-    return new Promise((resolve) => {
-      let checkCount = TokenPocket.NUM_CHECKS
-      const checkInterval = setInterval(() => {
-        if (tp.isConnected() || checkCount === 0) {
-          clearInterval(checkInterval)
-          resolve(tp.isConnected())
-        }
-        checkCount--
-      }, TokenPocket.API_LOADED_CHECK_INTERVAL)
-    })
+  private isTokenPocketReady(): boolean {
+    return tp.isConnected()
   }
 
   private supportsAllChains(): boolean {
@@ -62,15 +49,6 @@ export class TokenPocket extends Authenticator {
     return true
   }
 
-  public isMobile(): boolean {
-    const userAgent = window.navigator.userAgent
-    const isIOS = userAgent.includes('iPhone') || userAgent.includes('iPad')
-    const isMobile = userAgent.includes('Mobile')
-    const isAndroid = userAgent.includes('Android')
-
-    return isIOS || isMobile || isAndroid
-  }
-
   /**
    * TokenPocket injects into the app from its internal browser, because of that we check on a
    * configured interval, allowing up to 5 seconds for TokenPocket to become available before
@@ -79,11 +57,8 @@ export class TokenPocket extends Authenticator {
   public async init(): Promise<void> {
     this.tokenPocketIsLoading = true
     try {
-      if (!await this.isTokenPocketReady()) {
-        this.initError = new UALTokenPocketError('Error occurred while connecting',
-          UALErrorType.Initialization,
-          null
-        )
+      if (!this.isTokenPocketReady()) {
+        throw new Error('Unable to connect')
       }
     } catch (e) {
       this.initError = new UALTokenPocketError(
@@ -115,7 +90,7 @@ export class TokenPocket extends Authenticator {
    * within the Token Pocket browser provided all chains are supported.
    */
   public shouldRender(): boolean {
-    if (this.supportsAllChains() && this.isMobile()) {
+    if (this.supportsAllChains() && this.isTokenPocketReady()) {
       return true
     }
 

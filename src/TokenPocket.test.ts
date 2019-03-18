@@ -8,51 +8,39 @@ import { Name } from './interfaces'
 import { TokenPocket } from './TokenPocket'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
-jest.useFakeTimers()
-
 describe('TokenPocket', () => {
   describe('init', () => {
     beforeEach(() => {
       tp.isConnected.mockReturnValue(true)
     })
 
-    it('loading should be true if TokenPocket is not loaded', async () => {
+    it('loading should be false if Token Pocket is connected', async () => {
       const tokenPocket = new TokenPocket([] as Chain[])
-      tokenPocket.init()
-      jest.runAllTimers()
-      expect(tokenPocket.isLoading()).toBe(true)
+      await tokenPocket.init()
+
+      expect(tokenPocket.isLoading()).toBe(false)
       expect(tp.isConnected).toHaveBeenCalled()
     })
 
-    it('loading should be false if TokenPocket is loaded', async () => {
+    it('loading should be false if Token Pocket is not connected', async () => {
       tp.isConnected.mockReturnValue(false)
       const tokenPocket = new TokenPocket([] as Chain[])
-      const initPromise = tokenPocket.init()
+      await tokenPocket.init()
 
-      // Make the API available after 0.1 sec
-      jest.advanceTimersByTime(100)
-      tp.isConnected.mockReturnValue(true)
-      // Run timers to completion
-      jest.runAllTimers()
-      await initPromise
       expect(tokenPocket.isLoading()).toBe(false)
-      expect(tp.isConnected).toHaveBeenCalledTimes(2)
+      expect(tp.isConnected).toHaveBeenCalled()
     })
 
-    it('sets initError if it cant connect to api', async () => {
+    it('sets initError if it cant connect to Token Pocket', async () => {
       tp.isConnected.mockReturnValue(false)
       const tokenPocket = new TokenPocket([] as Chain[])
-      const initPromise = tokenPocket.init()
-
-      // Run timers to completion
-      jest.runAllTimers()
-      await initPromise
+      await tokenPocket.init()
 
       const error = tokenPocket.getError() as UALTokenPocketError
       expect(error.source).toEqual(Name)
-      expect(error.message).toEqual('Error occurred while connecting')
+      expect(error.message).toEqual('Error occurred during autologin')
       expect(error.type).toEqual(UALErrorType.Initialization)
-      expect(error.cause).toEqual(null)
+      expect(error.cause).toEqual(new Error('Unable to connect'))
     })
   })
 
@@ -65,10 +53,10 @@ describe('TokenPocket', () => {
     ]
 
     beforeEach(() => {
-      Object.defineProperty(window.navigator, 'userAgent', { value: 'Mobile', configurable: true })
+      tp.isConnected.mockReturnValue(true)
     })
 
-    it('should return true if all given chains are supported and on mobile', () => {
+    it('should return true if all given chains are supported and Token Pocket is connected', () => {
       const tokenPocket = new TokenPocket(chains)
       const shouldRender = tokenPocket.shouldRender()
       expect(shouldRender).toBe(true)
@@ -90,14 +78,14 @@ describe('TokenPocket', () => {
       expect(shouldRender).toBe(false)
     })
 
-    it('returns false if not on mobile', async () => {
-      Object.defineProperty(window.navigator, 'userAgent', { value: 'Chrome', configurable: true })
+    it('returns false if Token Pocket is not connected', async () => {
+      tp.isConnected.mockReturnValue(false)
       const tokenPocket = new TokenPocket(chains)
       const shouldRender = tokenPocket.shouldRender()
       expect(shouldRender).toBe(false)
     })
 
-    it('should return false if a given chain is not supported and not mobile', () => {
+    it('should return false if a given chain is not supported and Token Pocket is not connected', () => {
       const chainsWithUnsupportedChain = [
         {
           chainId: 'testChain',
@@ -108,7 +96,7 @@ describe('TokenPocket', () => {
           rpcEndpoints: [] as RpcEndpoint[]
         }
       ]
-      Object.defineProperty(window.navigator, 'userAgent', { value: 'Chrome', configurable: true })
+      tp.isConnected.mockReturnValue(false)
       const tokenPocket = new TokenPocket(chainsWithUnsupportedChain)
       const shouldRender = tokenPocket.shouldRender()
       expect(shouldRender).toBe(false)
