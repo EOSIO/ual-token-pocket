@@ -8,8 +8,6 @@ import { Name } from './interfaces'
 import { TokenPocket } from './TokenPocket'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
-jest.useFakeTimers()
-
 describe('TokenPocket', () => {
   describe('init', () => {
     beforeEach(() => {
