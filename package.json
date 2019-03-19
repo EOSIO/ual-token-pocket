@@ -1,8 +1,15 @@
 {
   "name": "@blockone/ual-token-pocket",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "main": "dist/index.js",
   "license": "MIT",
+  "author": {
+    "name": "block.one",
+    "url": "https://block.one"
+  },
+  "contributors": [
+    "Tara Tritt"
+  ],
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "clean-build": "rm -rf dist && yarn build",
@@ -10,14 +17,24 @@
     "test": "jest"
   },
   "dependencies": {
-    "@blockone/universal-authenticator-library": "^0.0.32",
+    "@blockone/universal-authenticator-library": "0.0.34",
     "tp-eosjs": "^1.5.2"
   },
   "devDependencies": {
     "@blockone/tslint-config-blockone": "^2.0.0",
+    "@types/jest": "^24.0.9",
     "jest": "^24.1.0",
     "ts-jest": "^24.0.0",
     "tslint": "^5.13.0",
     "typescript": "^3.3.3333"
-  }
+  },
+  "description": "UAL Authenticator for Token Pocket mobile app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EOSIO/ual-token-pocket.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EOSIO/ual-token-pocket/issues"
+  },
+  "homepage": "https://github.com/EOSIO/ual-token-pocket#readme"
 }

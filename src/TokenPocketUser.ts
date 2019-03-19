@@ -6,20 +6,21 @@ import {
   User
 } from '@blockone/universal-authenticator-library'
 import tp from 'tp-eosjs'
-import { PushEosActionResponse, Wallet } from './interfaces'
+
+import { EosAuthSignResponse, PushEosActionResponse, Wallet } from './interfaces'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
 export class TokenPocketUser extends User {
-  private account: Wallet
+  private wallet: Wallet
   private keys: string[] = []
   private chainId = ''
 
   constructor(
     chain: Chain | null,
-    accountObj: Wallet
+    wallet: Wallet
   ) {
     super()
-    this.account = accountObj
+    this.wallet = wallet
 
     if (chain && chain.chainId) {
       this.chainId = chain.chainId
@@ -34,7 +35,7 @@ export class TokenPocketUser extends User {
     let response: PushEosActionResponse
 
     try {
-      response = await tp.pushEosAction({ ...transaction, account: this.account.name, address: this.account.address})
+      response = await tp.pushEosAction({ ...transaction, account: this.wallet.name, address: this.wallet.address})
       if (response.result) {
         return {
           wasBroadcast: true,
@@ -56,9 +57,17 @@ export class TokenPocketUser extends User {
     publicKey: string,
     data: string,
     // tslint:disable-next-line:variable-name
-    _helpText: string): Promise<string> {
+    _helpText: string
+    ): Promise<string> {
+    let response: EosAuthSignResponse
+
     try {
-      return tp.eosAuthSign({ from: this.account.name, publicKey, signdata: data })
+      response = await tp.eosAuthSign({ from: this.wallet.name, publicKey, signdata: data })
+      if (response.result) {
+        return response.data.signature
+      } else {
+        throw new Error('No result returned')
+      }
     } catch (e) {
       throw new UALTokenPocketError(
         'Unable to sign arbitrary string',
@@ -73,7 +82,7 @@ export class TokenPocketUser extends User {
   }
 
   public async getAccountName(): Promise<string> {
-    return this.account.name
+    return this.wallet.name
   }
 
   public async getChainId(): Promise<string> {
@@ -82,7 +91,7 @@ export class TokenPocketUser extends User {
 
   public async getKeys(): Promise<string[]> {
     if (this.keys.length === 0) {
-      this.keys.push(this.account.address)
+      this.keys.push(this.wallet.address)
     }
 
     return this.keys

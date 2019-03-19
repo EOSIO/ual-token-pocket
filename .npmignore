@@ -1,4 +1,11 @@
+# Exclude all files by default
 *
-!/dist/**
-!README.md
-!package.json
+
+# Include distribution bundle but exclude test and mock files that may be included in dist
+!dist/**
+dist/**/__mocks__
+dist/**/*.mock.*
+dist/**/*.test.*
+
+# Include documentation and version information in bundle
+!CONTRIBUTING.md

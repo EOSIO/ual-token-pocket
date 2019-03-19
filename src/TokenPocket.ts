@@ -7,16 +7,13 @@ import {
   User
 } from '@blockone/universal-authenticator-library'
 import tp from 'tp-eosjs'
-import { Name } from './interfaces'
+
+import { Name, WalletResponse } from './interfaces'
 import { tokenPocketLogo } from './tokenPocketLogo'
 import { TokenPocketUser } from './TokenPocketUser'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
 export class TokenPocket extends Authenticator {
-  // Interval to test for whether the Token Pocket API is connected
-  private static API_LOADED_CHECK_INTERVAL = 500
-  // Number of times to look for the Token Pocket API before giving up
-  private static NUM_CHECKS = 10
   private users: TokenPocketUser[] = []
   private tokenPocketIsLoading: boolean = true
   private initError: UALError | null = null
@@ -26,21 +23,16 @@ export class TokenPocket extends Authenticator {
     aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906: {},
   }
 
+  /**
+   * TokenPocket Constructor.
+   * @param chains
+   */
   constructor(chains: Chain[]) {
     super(chains)
   }
 
-  private isTokenPocketReady(): Promise<boolean> {
-    return new Promise((resolve) => {
-      let checkCount = TokenPocket.NUM_CHECKS
-      const checkInterval = setInterval(() => {
-        if (!!tp.isConnected() || checkCount === 0) {
-          clearInterval(checkInterval)
-          resolve(!!tp.isConnected())
-        }
-        checkCount--
-      }, TokenPocket.API_LOADED_CHECK_INTERVAL)
-    })
+  private isTokenPocketReady(): boolean {
+    return tp.isConnected()
   }
 
   private supportsAllChains(): boolean {
@@ -57,10 +49,17 @@ export class TokenPocket extends Authenticator {
     return true
   }
 
+  /**
+   * TokenPocket injects into the app from its internal browser, because of that we check on a
+   * configured interval, allowing up to 5 seconds for TokenPocket to become available before
+   * throwing an initialization error.
+   */
   public async init(): Promise<void> {
     this.tokenPocketIsLoading = true
     try {
-      await this.isTokenPocketReady()
+      if (!this.isTokenPocketReady()) {
+        throw new Error('Unable to connect')
+      }
     } catch (e) {
       this.initError = new UALTokenPocketError(
         'Error occurred during autologin',
@@ -73,6 +72,7 @@ export class TokenPocket extends Authenticator {
 
   public reset(): void {
     this.initError = null
+    // tslint:disable-next-line:no-floating-promises
     this.init()
   }
 
@@ -80,13 +80,17 @@ export class TokenPocket extends Authenticator {
     return {
       icon: tokenPocketLogo,
       text: Name,
-      textColor: '#222222',
-      background: '#F5FAFE'
+      textColor: 'white',
+      background: '#347CEE'
     }
   }
 
+  /**
+   * The TokenPocket authenticator is chain and environment specific, it will only load
+   * within the Token Pocket browser provided all chains are supported.
+   */
   public shouldRender(): boolean {
-    if (this.supportsAllChains()) {
+    if (this.supportsAllChains() && this.isTokenPocketReady()) {
       return true
     }
 
@@ -98,11 +102,19 @@ export class TokenPocket extends Authenticator {
     return this.shouldRender()
   }
 
-  public async login(_?: string): Promise<User[]> {
+  /**
+   * Requests the currently active account from Token Pocket, will throw a Login error if Token Pocket
+   * does not respond or errors out
+   */
+  public async login(): Promise<User[]> {
     if (this.users.length === 0) {
       try {
-        const { data } = await tp.getCurrentWallet()
-        this.users.push(new TokenPocketUser(this.chains[0], data))
+        const response: WalletResponse = await tp.getCurrentWallet()
+        if (response.result) {
+          this.users.push(new TokenPocketUser(this.chains[0], response.data))
+        } else {
+          throw new Error('No result returned')
+        }
       } catch (e) {
         throw new UALTokenPocketError(
           'Unable to get the current account during login',
@@ -114,7 +126,12 @@ export class TokenPocket extends Authenticator {
     return this.users
   }
 
-  // Token Pocket doesn't really have a "logout" concept
+  /**
+   * Clears the array of authenticated users
+   * Note: The name - logout - is slightly misleading in this particular case
+   * as calling this method will not log a user out of the Token Pocket app but rather
+   * refresh the user list on the authenticator
+   */
   public async logout(): Promise<void> {
     this.users = []
   }
@@ -137,5 +154,9 @@ export class TokenPocket extends Authenticator {
 
   public getOnboardingLink(): string {
     return 'https://www.mytokenpocket.vip/en/'
+  }
+
+  public requiresGetKeyConfirmation(): boolean {
+    return false
   }
 }
