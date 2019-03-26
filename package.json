@@ -1,6 +1,6 @@
 {
-  "name": "@blockone/ual-token-pocket",
-  "version": "0.0.7",
+  "name": "ual-token-pocket",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
