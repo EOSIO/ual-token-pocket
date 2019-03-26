@@ -10,21 +10,21 @@ This authenticator is meant to be used with [Token Pocket](https://www.mytokenpo
 
 **Note:** be sure to read the [Warning and Limitations](#warning-and-limitations) section below.
 
-`yarn add @blockone/ual-token-pocket`
+`yarn add ual-token-pocket`
 
 #### Dependencies
 
 You must use one of the UAL renderers below.
 
-React - `@blockone/ual-reactjs-renderer`
+React - `ual-reactjs-renderer`
 
-PlainJS - `@blockone/ual-plainjs-renderer`
+PlainJS - `ual-plainjs-renderer`
 
 #### Basic Usage with React
 
 ```javascript
-import { TokenPocket } from '@blockone/ual-token-pocket'
-import { UALProvider, withUAL } from '@blockone/ual-reactjs-renderer'
+import { TokenPocket } from 'ual-token-pocket'
+import { UALProvider, withUAL } from 'ual-reactjs-renderer'
 
 const exampleNet = {
   chainId: '',
