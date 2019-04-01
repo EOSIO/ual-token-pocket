@@ -1,4 +1,4 @@
-import { UALError, UALErrorType } from '@blockone/universal-authenticator-library'
+import { UALError, UALErrorType } from 'universal-authenticator-library'
 
 import { Name } from './interfaces'
 

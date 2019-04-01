@@ -1,7 +1,7 @@
 import './__mocks__/tp-eosjs.mock'
 import { walletResponse } from './__mocks__/data.mock'
 
-import { Chain, RpcEndpoint, UALErrorType } from '@blockone/universal-authenticator-library'
+import { Chain, RpcEndpoint, UALErrorType } from 'universal-authenticator-library'
 import * as tp from 'tp-eosjs'
 
 import { Name } from './interfaces'

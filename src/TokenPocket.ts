@@ -5,7 +5,7 @@ import {
   UALError,
   UALErrorType,
   User
-} from '@blockone/universal-authenticator-library'
+} from 'universal-authenticator-library'
 import tp from 'tp-eosjs'
 
 import { Name, WalletResponse } from './interfaces'
