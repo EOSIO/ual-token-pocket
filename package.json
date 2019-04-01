@@ -17,11 +17,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@blockone/universal-authenticator-library": "0.0.34",
+    "universal-authenticator-library": "0.1.0",
     "tp-eosjs": "^1.5.2"
   },
   "devDependencies": {
-    "@blockone/tslint-config-blockone": "^2.0.0",
+    "@blockone/tslint-config-blockone": "^3.0.0",
     "@types/jest": "^24.0.9",
     "jest": "^24.1.0",
     "ts-jest": "^24.0.0",

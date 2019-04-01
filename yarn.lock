@@ -131,18 +131,13 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@blockone/tslint-config-blockone@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@blockone/tslint-config-blockone/-/tslint-config-blockone-2.0.0.tgz#1df6e235200a14b3d4d440e292db0c921ae69eda"
-  integrity sha512-IEo4/r07nwNh1Jfq4xCJDt6ZK938kWTfPZ5wFl8nNdh9p/ScZ16CV7GzIIyuIp1MtAJW+yiiM6oCtRwEHwAkvA==
+"@blockone/tslint-config-blockone@^3.0.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@blockone/tslint-config-blockone/-/tslint-config-blockone-3.1.0.tgz#3982c35a7d54bf1204de9dd795b43e0fc47a4371"
+  integrity sha512-aq4YTUG2RbDVZ4u/bulGqad5wpNauDOsLdEJ6RvAvGcO0lrdf8Axtv7wKatDjuE8jeitX8N2tk0WP/LeL4LHoQ==
   dependencies:
     tslint "^5.11.0"
     tslint-eslint-rules "^5.4.0"
-
-"@blockone/universal-authenticator-library@0.0.34":
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/@blockone/universal-authenticator-library/-/universal-authenticator-library-0.0.34.tgz#82f78a071b74162ae83acf12e074046f237ddd93"
-  integrity sha512-k6XsowYDBOZMzY8ALdpaPuV3XCGqbTgUAvYFJvZVpdc95PC+EhN7Quv7AODPoL0ruTbgmNH39LLBd9vQZSVQCw==
 
 "@types/jest-diff@*":
   version "20.0.1"
@@ -3369,6 +3364,11 @@ union-value@^1.0.0:
     get-value "^2.0.6"
     is-extendable "^0.1.1"
     set-value "^0.4.3"
+
+universal-authenticator-library@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/universal-authenticator-library/-/universal-authenticator-library-0.1.0.tgz#187e6a85f43e75d4d76b66c228c9e4b59770d4af"
+  integrity sha512-45nl80BWf+9WA8vTMXunMicZmHPm4wWdxNnSlL65cCP4OjA1ra4IuH+T7+Ko3P6IfXSfS9+VNCuXai3fip+taA==
 
 unset-value@^1.0.0:
   version "1.0.0"

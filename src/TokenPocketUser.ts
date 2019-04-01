@@ -4,7 +4,7 @@ import {
   SignTransactionResponse,
   UALErrorType,
   User
-} from '@blockone/universal-authenticator-library'
+} from 'universal-authenticator-library'
 import tp from 'tp-eosjs'
 
 import { EosAuthSignResponse, PushEosActionResponse, Wallet } from './interfaces'

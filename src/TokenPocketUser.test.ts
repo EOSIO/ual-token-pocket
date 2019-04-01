@@ -1,7 +1,7 @@
 import './__mocks__/tp-eosjs.mock'
 import { wallet, chain, authSignResponse, pushActionResponse } from './__mocks__/data.mock'
 
-import { UALErrorType } from '@blockone/universal-authenticator-library'
+import { UALErrorType } from 'universal-authenticator-library'
 import * as tp from 'tp-eosjs'
 
 import { Name } from './interfaces'
