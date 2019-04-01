@@ -1,4 +1,4 @@
-import { Chain, RpcEndpoint } from '@blockone/universal-authenticator-library'
+import { Chain, RpcEndpoint } from 'universal-authenticator-library'
 import { EosAuthSignResponse, PushEosActionResponse, Wallet, WalletResponse } from '../interfaces'
 
 export const wallet: Wallet = {
