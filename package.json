@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "clean-build": "rm -rf dist && yarn build",
-    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "jest"
   },
   "dependencies": {
