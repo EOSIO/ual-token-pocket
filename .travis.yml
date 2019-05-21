@@ -1,0 +1,16 @@
+sudo: false
+language: node_js
+node_js:
+- '10.0.0'
+stages:
+- test
+jobs:
+  include:
+  - stage: test
+    name: "Lint and Test"
+    script:
+    - yarn lint
+    - yarn test
+notifications:
+  webhooks:
+    secure: "kuc8T6A4+U1KqK1dn0J3LfKWt9oJG2s/LkKncoNcLID4+9J3hbehuTPhkCHadJWorpq1gTCiM1CFjksDoEEcECa5/ILPjJJOjCIt9QQiIWeEqGCkbljDFm86rbSL44O2aczouIDGEklVtK+lZwZGSItJSihmdhZpholjKSk07IobSvhRBhuikuDDI/AnivotLl9XJiciylqoLLZt0g3IyXmPXk4oEFsWF/aE8FnQrw4u1uuR9kCbgatNy1dler7xr57mUm3RhkBugcFGpVxth0xLj6D8zA9FAR/YG+HzP2GfUKRHiPBBkD9F2DLj90ccJ6a6auJxpDaXayQf3mxuutqhnrOLpo/LZjA4uoL380xZ+5Ds1dRga/k2aL+AuoA6od6ngCI5ZPkVbrvX6FbmTgBc9rR5FHvXOBw/xcz2bJ2k/jv+8OJ6NwMXcdl07gYG97MGu/uvXq2UfFxOoyF5qBurHTi7SzxOFlJmJBR3TUKtT0IVFGz6H6U8B1Ue0Ss06Z3NMEipGxY/OwhbhI/ekDrgeXEP4VLKrpvcz3FrJJA6uLo8a5vkcBhr7saLilgd9mFwV6n0pPC9xtXui56okVOV9L2e042YHlmuV4iURScRAVMUmzmU36ecw36u9v547rQKUXv+9C7yEH6+/89bPysskEEOsj6M2u7cT5b5tXg="
