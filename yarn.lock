@@ -131,10 +131,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@blockone/tslint-config-blockone@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@blockone/tslint-config-blockone/-/tslint-config-blockone-3.1.0.tgz#3982c35a7d54bf1204de9dd795b43e0fc47a4371"
-  integrity sha512-aq4YTUG2RbDVZ4u/bulGqad5wpNauDOsLdEJ6RvAvGcO0lrdf8Axtv7wKatDjuE8jeitX8N2tk0WP/LeL4LHoQ==
+"@blockone/tslint-config-blockone@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@blockone/tslint-config-blockone/-/tslint-config-blockone-4.0.0.tgz#34ce165e7223acff5811f4bbae66290160c4bf56"
+  integrity sha512-5x4yzXr+rBJXpfr9bzfZRj36J2WfnWeKk9SBpWkeSQiMuPuiYuoQImcOzzscgZGgTMpHou9tz2M5s3SrT1uEdg==
   dependencies:
     tslint "^5.11.0"
     tslint-eslint-rules "^5.4.0"

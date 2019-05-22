@@ -1,3 +1,4 @@
+import tp from 'tp-eosjs'
 import {
   Chain,
   SignTransactionConfig,
@@ -5,7 +6,6 @@ import {
   UALErrorType,
   User
 } from 'universal-authenticator-library'
-import tp from 'tp-eosjs'
 
 import { EosAuthSignResponse, PushEosActionResponse, Wallet } from './interfaces'
 import { UALTokenPocketError } from './UALTokenPocketError'

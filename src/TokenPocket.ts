@@ -1,3 +1,4 @@
+import tp from 'tp-eosjs'
 import {
   Authenticator,
   ButtonStyle,
@@ -6,7 +7,6 @@ import {
   UALErrorType,
   User
 } from 'universal-authenticator-library'
-import tp from 'tp-eosjs'
 
 import { Name, WalletResponse } from './interfaces'
 import { tokenPocketLogo } from './tokenPocketLogo'
