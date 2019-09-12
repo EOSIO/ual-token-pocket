@@ -18,8 +18,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "tp-eosjs": "^1.5.2",
-    "universal-authenticator-library": "0.1.0"
+    "tp-eosjs": "1.5.2",
+    "universal-authenticator-library": "0.1.2"
   },
   "devDependencies": {
     "@blockone/tslint-config-blockone": "^4.0.0",
