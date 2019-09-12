@@ -1,6 +1,6 @@
 {
   "name": "ual-token-pocket",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
@@ -18,14 +18,14 @@
     "test": "jest"
   },
   "dependencies": {
-    "tp-eosjs": "^1.5.2",
-    "universal-authenticator-library": "0.1.0"
+    "tp-eosjs": "1.5.2",
+    "universal-authenticator-library": "0.1.4"
   },
   "devDependencies": {
     "@blockone/tslint-config-blockone": "^4.0.0",
     "@types/jest": "^24.0.9",
-    "jest": "^24.1.0",
-    "ts-jest": "^24.0.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.13.0",
     "typescript": "^3.3.3333"
   },
