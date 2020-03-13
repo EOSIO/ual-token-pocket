@@ -58,7 +58,7 @@ export class TokenPocketUser extends User {
     data: string,
     // tslint:disable-next-line:variable-name
     _helpText: string
-    ): Promise<string> {
+  ): Promise<string> {
     let response: EosAuthSignResponse
 
     try {
