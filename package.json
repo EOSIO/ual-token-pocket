@@ -11,10 +11,9 @@
     "Tara Tritt"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "clean-build": "rm -rf dist && yarn build",
+    "build": "rm -rf dist && tsc --build tsconfig.json",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "prepublish": "yarn clean-build",
+    "prepare": "yarn build",
     "test": "jest"
   },
   "dependencies": {
@@ -22,12 +21,12 @@
     "universal-authenticator-library": "0.2.0"
   },
   "devDependencies": {
-    "@blockone/tslint-config-blockone": "^4.0.0",
-    "@types/jest": "^24.0.9",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.13.0",
-    "typescript": "^3.3.3333"
+    "@blockone/tslint-config-blockone": "^4.0.1",
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
+    "tslint": "^6.1.0",
+    "typescript": "^3.8.3"
   },
   "description": "UAL Authenticator for Token Pocket mobile app",
   "repository": {
