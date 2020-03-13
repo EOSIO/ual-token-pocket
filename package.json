@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "clean-build": "rm -rf dist && yarn build",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "prepublish": "yarn clean-build",
     "test": "jest"
   },
@@ -22,8 +22,10 @@
     "universal-authenticator-library": "0.2.0"
   },
   "devDependencies": {
+    "@blockone/eslint-config-blockone": "^3.0.0",
     "@blockone/tslint-config-blockone": "^4.0.0",
     "@types/jest": "^24.0.9",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.13.0",
