@@ -169,6 +169,13 @@ describe('TokenPocket', () => {
     })
   })
 
+  describe('get authenticator name', () => {
+    it('should be able to get authenticator name', () => {
+      const tokenPocket = new TokenPocket([] as Chain[])
+      expect(tokenPocket.getName()).toBe(Name)
+    })
+  })
+
   afterEach(() => {
     jest.clearAllMocks()
   })
