@@ -1,6 +1,6 @@
 {
   "name": "ual-token-pocket",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "tp-eosjs": "1.5.2",
-    "universal-authenticator-library": "0.2.0"
+    "universal-authenticator-library": "0.3.0"
   },
   "devDependencies": {
     "@blockone/eslint-config-blockone": "^3.0.0",
