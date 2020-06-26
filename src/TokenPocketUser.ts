@@ -29,7 +29,6 @@ export class TokenPocketUser extends User {
 
   public async signTransaction(
     transaction: any,
-    // tslint:disable-next-line:variable-name
     _config: SignTransactionConfig
   ): Promise<SignTransactionResponse> {
     let response: PushEosActionResponse
@@ -56,9 +55,8 @@ export class TokenPocketUser extends User {
   public async signArbitrary(
     publicKey: string,
     data: string,
-    // tslint:disable-next-line:variable-name
     _helpText: string
-    ): Promise<string> {
+  ): Promise<string> {
     let response: EosAuthSignResponse
 
     try {

@@ -1,6 +1,6 @@
 {
   "name": "ual-token-pocket",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
@@ -11,23 +11,22 @@
     "Tara Tritt"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "clean-build": "rm -rf dist && yarn build",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "prepublish": "yarn clean-build",
+    "build": "rm -rf dist && tsc --build tsconfig.json",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "prepare": "yarn build",
     "test": "jest"
   },
   "dependencies": {
     "tp-eosjs": "1.5.2",
-    "universal-authenticator-library": "0.2.0"
+    "universal-authenticator-library": "0.3.0"
   },
   "devDependencies": {
-    "@blockone/tslint-config-blockone": "^4.0.0",
-    "@types/jest": "^24.0.9",
+    "@blockone/eslint-config-blockone": "^3.0.0",
+    "@types/jest": "^24.9.1",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.13.0",
-    "typescript": "^3.3.3333"
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.8.3"
   },
   "description": "UAL Authenticator for Token Pocket mobile app",
   "repository": {
