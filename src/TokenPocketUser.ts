@@ -1,4 +1,5 @@
 import tp from 'tp-eosjs'
+import { JsonRpc } from 'eosjs'
 import {
   Chain,
   SignTransactionConfig,
@@ -13,18 +14,28 @@ import { UALTokenPocketError } from './UALTokenPocketError'
 export class TokenPocketUser extends User {
   private wallet: Wallet
   private keys: string[] = []
-  private chainId = ''
+  private chainId = '' 
+  private accountName: string = ''
+  private rpc: JsonRpc | null = null
 
   constructor(
     chain: Chain | null,
     wallet: Wallet
   ) {
     super()
+    
+ 
+
     this.wallet = wallet
+    this.accountName = wallet.name
 
     if (chain && chain.chainId) {
       this.chainId = chain.chainId
+      const rpcEndpoint = chain.rpcEndpoints[0]
+      const rpcEndpointString = this.buildRpcEndpoint(rpcEndpoint)
+      this.rpc = new JsonRpc(rpcEndpointString)
     }
+  
   }
 
   public async signTransaction(
@@ -80,11 +91,15 @@ export class TokenPocketUser extends User {
   }
 
   public async getAccountName(): Promise<string> {
-    return this.wallet.name
+    return this.accountName
   }
 
   public async getChainId(): Promise<string> {
     return this.chainId
+  }
+
+  public async getRpc(): Promise<JsonRpc | null> {
+    return this.rpc
   }
 
   public async getKeys(): Promise<string[]> {
