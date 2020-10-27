@@ -1,3 +1,4 @@
+import { JsonRpc } from 'eosjs'
 import tp from 'tp-eosjs'
 import {
   Chain,
@@ -7,6 +8,7 @@ import {
   User
 } from 'universal-authenticator-library'
 
+
 import { EosAuthSignResponse, PushEosActionResponse, Wallet } from './interfaces'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
@@ -14,6 +16,7 @@ export class TokenPocketUser extends User {
   private wallet: Wallet
   private keys: string[] = []
   private chainId = ''
+  public rpc: JsonRpc | null = null
 
   constructor(
     chain: Chain | null,
@@ -24,6 +27,9 @@ export class TokenPocketUser extends User {
 
     if (chain && chain.chainId) {
       this.chainId = chain.chainId
+      const rpcEndpoint = chain.rpcEndpoints[0]
+      const rpcEndpointString = this.buildRpcEndpoint(rpcEndpoint)
+      this.rpc = new JsonRpc(rpcEndpointString)
     }
   }
 

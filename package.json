@@ -17,6 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "eosjs": "^21.0.3",
     "tp-eosjs": "1.5.2",
     "universal-authenticator-library": "0.3.0"
   },
