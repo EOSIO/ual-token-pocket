@@ -154,7 +154,7 @@ export class TokenPocket extends Authenticator {
   }
 
   public getOnboardingLink(): string {
-    return 'https://www.mytokenpocket.vip/en/'
+    return 'https://www.tokenpocket.pro/en/'
   }
 
   public requiresGetKeyConfirmation(): boolean {

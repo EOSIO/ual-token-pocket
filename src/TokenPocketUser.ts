@@ -1,4 +1,5 @@
 import tp from 'tp-eosjs'
+import { JsonRpc } from 'eosjs'
 import {
   Chain,
   SignTransactionConfig,
@@ -7,24 +8,34 @@ import {
   User
 } from 'universal-authenticator-library'
 
-import { EosAuthSignResponse, PushEosActionResponse, Wallet } from './interfaces'
+import { PushEosActionResponse, Wallet } from './interfaces'
 import { UALTokenPocketError } from './UALTokenPocketError'
 
 export class TokenPocketUser extends User {
   private wallet: Wallet
   private keys: string[] = []
   private chainId = ''
+  private accountName: string = ''
+  private rpc: JsonRpc | null = null
 
   constructor(
     chain: Chain | null,
     wallet: Wallet
   ) {
     super()
+
+
+
     this.wallet = wallet
+    this.accountName = wallet.name
 
     if (chain && chain.chainId) {
       this.chainId = chain.chainId
+      const rpcEndpoint = chain.rpcEndpoints[0]
+      const rpcEndpointString = this.buildRpcEndpoint(rpcEndpoint)
+      this.rpc = new JsonRpc(rpcEndpointString)
     }
+
   }
 
   public async signTransaction(
@@ -34,7 +45,7 @@ export class TokenPocketUser extends User {
     let response: PushEosActionResponse
 
     try {
-      response = await tp.pushEosAction({ ...transaction, account: this.wallet.name, address: this.wallet.address})
+      response = await tp.pushEosAction({ ...transaction, account: this.wallet.name, address: this.wallet.address })
       if (response.result) {
         return {
           wasBroadcast: true,
@@ -57,15 +68,19 @@ export class TokenPocketUser extends User {
     data: string,
     _helpText: string
   ): Promise<string> {
-    let response: EosAuthSignResponse
+    let response: string
 
     try {
-      response = await tp.eosAuthSign({ from: this.wallet.name, publicKey, signdata: data })
-      if (response.result) {
-        return response.data.signature
-      } else {
-        throw new Error('No result returned')
-      }
+      response = await tp.getEosArbitrarySignature({
+        publicKey,
+        data,
+        blockchain: 'eos',
+        whatfor: 'sign:' + data,
+        isHash: false
+      })
+      return response;
+
+
     } catch (e) {
       throw new UALTokenPocketError(
         'Unable to sign arbitrary string',
@@ -80,11 +95,15 @@ export class TokenPocketUser extends User {
   }
 
   public async getAccountName(): Promise<string> {
-    return this.wallet.name
+    return this.accountName
   }
 
   public async getChainId(): Promise<string> {
     return this.chainId
+  }
+
+  public async getRpc(): Promise<JsonRpc | null> {
+    return this.rpc
   }
 
   public async getKeys(): Promise<string[]> {
