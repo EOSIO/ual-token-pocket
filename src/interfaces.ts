@@ -19,15 +19,3 @@ export interface PushEosActionResponse {
     transactionId: string
   }
 }
-
-export interface EosAuthSignResponse {
-  result: boolean
-  data: {
-    signature: string
-    ref: string
-    signdata: string
-    timestamp: string
-    wallet: string
-  }
-  msg: string
-}
