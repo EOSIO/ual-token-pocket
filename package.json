@@ -32,10 +32,10 @@
   "description": "UAL Authenticator for Token Pocket mobile app",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EOSIO/ual-token-pocket.git"
+    "url": "https://github.com/TP-Lab/ual-token-pocket.git"
   },
   "bugs": {
-    "url": "https://github.com/EOSIO/ual-token-pocket/issues"
+    "url": "https://github.com/TP-Lab/ual-token-pocket/issues"
   },
-  "homepage": "https://github.com/EOSIO/ual-token-pocket#readme"
+  "homepage": "https://github.com/TP-Lab/ual-token-pocket#readme"
 }
